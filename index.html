@@ -1,88 +1,124 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ENS CONNECT 2026</title>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>ENS CONNECT 2026</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#111b21;color:#e9edef;font-family:sans-serif;height:100vh;display:flex;flex-direction:column}
-.h{background:#202c33;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
-.h b{font-size:20px}.h span{font-size:22px}
-.tabs{display:flex;background:#202c33;padding:0 8px;gap:8px}
-.tab{padding:10px 14px;border-radius:20px;background:#182229;color:#8696a0;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px}
-.tab.active{background:#00a884;color:#111b21}
-.page{display:none;flex:1;overflow-y:auto}.page.active{display:flex;flex-direction:column}
-.arch{margin:10px 12px;padding:12px 14px;background:#202c33;border-radius:12px;display:flex;justify-content:space-between;align-items:center}
-.chat{padding:12px 16px;display:flex;gap:12px;align-items:center}
-.chat:active{background:#2a3942}
-.av{width:50px;height:50px;border-radius:50%;background:#00a884;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;overflow:hidden}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#0a0a0a;color:#fff;font-family:-apple-system,Roboto,sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.top{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:#0a0a0a}
+.top b{font-size:26px;font-weight:900;letter-spacing:-0.5px;text-align:center;line-height:1.1}
+.pills{display:flex;gap:8px;padding:10px 12px;background:#0a0a0a;overflow-x:auto}
+.pill{padding:9px 16px;border-radius:20px;background:#2a2a2a;color:#8a8a8a;font-size:14px;font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.pill.active{background:#2a2a2a;color:#fff;border-bottom:3px solid #25d366;border-radius:20px 20px 0 0;padding-bottom:7px}
+.page{display:none;flex:1;overflow-y:auto;background:#0a0a0a}.page.active{display:flex;flex-direction:column}
+.arch{display:flex;justify-content:space-between;align-items:center;margin:10px 12px;padding:14px 16px;background:#1f1f1f;border-radius:24px}
+.chat{display:flex;gap:12px;padding:12px 16px;align-items:center}
+.chat:active{background:#1a1a1a}
+.av{width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#25d366;display:flex;align-items:center;justify-content:center;font-size:24px}
 .av img{width:100%;height:100%;object-fit:cover}
-.fab{position:fixed;bottom:22px;right:22px;width:56px;height:56px;background:#00a884;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 2px 10px #0008;z-index:10}
+.badge{background:#25d366;color:#000;font-size:13px;font-weight:700;min-width:22px;height:22px;border-radius:11px;display:flex;align-items:center;justify-content:center;padding:0 6px}
+.fab{position:fixed;bottom:24px;right:20px;width:60px;height:60px;background:#25d366;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px #000a;z-index:10}
+.meta{font-size:13px;color:#8a8a8a}
+.time{font-size:12px;color:#8a8a8a;text-align:right}
+.name{font-size:17px;font-weight:600}
+.preview{font-size:14px;color:#8a8a8a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px;display:flex;align-items:center;gap:4px}
 #win{position:fixed;inset:0;background:#0b141a;z-index:100;display:none;flex-direction:column}
-.bubble{max-width:78%;padding:7px 10px;border-radius:10px;margin:5px 10px;font-size:14.5px}
-.me{background:#005c4b;margin-left:auto}.other{background:#202c33}
-.bar{background:#202c33;padding:6px 10px;display:flex;gap:8px;align-items:center}
-.bar input{flex:1;padding:10px 14px;border-radius:22px;border:0;background:#2a3942;color:#fff;outline:0}
-.contact{padding:10px 16px;display:flex;gap:12px;align-items:center}
-.contact b{font-size:15px}.contact small{color:#8696a0}
-.menu{position:fixed;top:50px;right:10px;background:#233138;border-radius:10px;padding:8px 0;z-index:200;display:none;box-shadow:0 5px 20px #000a}
-.menu div{padding:12px 20px;font-size:14px}.menu div:active{background:#2a3942}
 </style></head><body>
-<div class="h"><b>ENS CONNECT 2026</b><div><span onclick="document.getElementById('search').style.display='flex'">🔍</span> <span onclick="document.getElementById('m').style.display=document.getElementById('m').style.display=='block'?'none':'block'">⋮</span></div></div>
-
-<div id="search" style="display:none;padding:8px;background:#202c33"><input id="sIn" placeholder="Search ENS students..." style="width:100%;padding:10px 14px;border-radius:20px;border:0;background:#2a3942;color:#fff" oninput="searchChats(this.value)"><span onclick="this.parentElement.style.display='none'" style="margin-left:8px">✕</span></div>
-
-<div class="menu" id="m">
-<div onclick="alert('New Group: Select contacts to create ENS study group');toggleMenu()">New group</div>
-<div onclick="alert('New Community: For ENS 2026 - All years');toggleMenu()">New community</div>
-<div onclick="alert('New Broadcast: Send to many at once');toggleMenu()">New broadcast</div>
-<div onclick="openContacts()">New contact</div>
-<div onclick="alert('Linked Devices: Link ENS CONNECT to laptop');toggleMenu()">Linked devices</div>
-<div onclick="alert('Starred Messages');toggleMenu()">Starred messages</div>
-<div onclick="alert('Settings: ENS Profile, Privacy, Notifications');toggleMenu()">Settings</div>
+<div class="top">
+<span style="font-size:26px">📷</span>
+<b>ENS CONNECT<br>2026</b>
+<div style="display:flex;gap:16px"><span style="font-size:24px">🔍</span><span style="font-size:24px">⋮</span></div>
 </div>
 
-<div class="tabs">
-<div class="tab active" id="tb1" onclick="openTab('chats')">💬 CHATS</div>
-<div class="tab" id="tb2" onclick="openTab('status')">⭕ STATUS</div>
-<div class="tab" id="tb3" onclick="openTab('comm')">👥 COMMUNITIES</div>
-<div class="tab" id="tb4" onclick="openTab('calls')">📞 CALLS</div>
+<div class="pills">
+<div class="pill active" id="p1" onclick="tab('chats')">💬 CHATS</div>
+<div class="pill" id="p2" onclick="tab('status')">⭕ STATUS</div>
+<div class="pill" id="p3" onclick="tab('comm')">👥 COMMUNITIES</div>
+<div class="pill" id="p4" onclick="tab('calls')">📞 CALLS</div>
 </div>
 
+<!-- CHATS PAGE - EXACT LIKE PHOTO -->
 <div id="pg-chats" class="page active">
-<div class="arch" onclick="alert('Archived: 1 chat - Dr Okore old notes')"><span>📦 Archived chats</span><span>1 ›</span></div>
-
-<div id="chatList">
-<div class="chat" onclick="openChat('ENS 2026 Official Group','group')"><div class="av">👥</div><div style="flex:1"><b>ENS 2026 Official Group 💬</b><br><small style="color:#00a884">Amos: Tomorrow CAT at 9am 📚</small></div><div style="text-align:right"><small>05:31</small><br><small style="background:#00a884;color:#000;border-radius:10px;padding:2px 6px">24</small></div></div>
-
-<div class="chat" onclick="openChat('Dr Okore (Patron)','private')"><div class="av">👨‍🏫</div><div style="flex:1"><b>Dr Okore (Patron)</b><br><small>✅ Assignment received ✓✓</small></div><small>Yesterday</small></div>
-
-<div class="chat" onclick="openChat('Class Rep - Amos Nyongesa','private')"><div class="av">🎓</div><div style="flex:1"><b>Class Rep - Amos Nyongesa</b><br><small>🎙️ Voice message • 0:24</small></div><small>Yesterday</small></div>
-
-<div class="chat" onclick="openChat('ENS 582 Group','group')"><div class="av">📚</div><div style="flex:1"><b>ENS 582 Materials</b><br><small>sciencee962@gmail.com added you</small></div><small>Today</small></div>
-
-<div class="chat" onclick="openChat('Becky - ENS 2026','private')"><div class="av">👩‍🎓</div><div style="flex:1"><b>Becky - ENS 2026</b><br><small>See you at lab? 🧪</small></div><small>09:12</small></div>
-
-<div class="chat" onclick="openChat('Kelvin - ENS','private')"><div class="av">👨‍🔬</div><div style="flex:1"><b>Kelvin - ENS</b><br><small>Pushed update to ENS CONNECT repo</small></div><small>08:45</small></div>
-</div>
+<div class="arch" onclick="alert('Archived 1 chat')">
+<div style="display:flex;gap:10px;align-items:center"><span style="background:#1a3a2a;padding:8px;border-radius:8px">☰</span> <span class="meta" style="font-size:15px;color:#aaa">Archived chats</span></div>
+<div style="display:flex;gap:8px;align-items:center"><span>›</span><span class="badge" style="background:#3a3a3a;color:#fff">1</span></div>
 </div>
 
+<div id="list">
+<div class="chat" onclick="openChat('Alice Kim')">
+<div class="av"><img src="https://i.pravatar.cc/100?img=32"></div>
+<div style="flex:1;overflow:hidden"><div style="display:flex;justify-content:space-between"><span class="name">Alice Kim</span><span class="time">09:12</span></div><div style="display:flex;justify-content:space-between;align-items:center"><span class="preview">Got it! See you at the meetup tomorrow 👍</span><span class="badge">2</span></div></div>
+</div>
+
+<div class="chat" onclick="openChat('Bob Chen')">
+<div class="av"><img src="https://i.pravatar.cc/100?img=8"></div>
+<div style="flex:1;overflow:hidden"><div style="display:flex;justify-content:space-between"><span class="name">Bob Chen</span><span class="time">08:45</span></div><div style="display:flex;justify-content:space-between"><span class="preview">Pushed the update to ENS CONNECT repo 💻</span><span class="badge">5</span></div></div>
+</div>
+
+<div class="chat" onclick="openChat('Team Dev')">
+<div class="av" style="background:#000;position:relative;width:56px;height:56px"><div style="display:flex;flex-wrap:wrap;gap:2px;padding:2px"><img src="https://i.pravatar.cc/100?img=11" style="width:25px;height:25px;border-radius:50%"><img src="https://i.pravatar.cc/100?img=26" style="width:25px;height:25px;border-radius:50%"><img src="https://i.pravatar.cc/100?img=12" style="width:25px;height:25px;border-radius:50%"></div></div>
+<div style="flex:1;overflow:hidden"><div style="display:flex;justify-content:space-between"><span class="name">Team Dev 🔗</span><span class="time">Yesterday</span></div><span class="preview">Mia: Standup in 10 mins — agenda is in docs</span></div>
+</div>
+
+<div class="chat" onclick="openChat('Mom')">
+<div class="av"><img src="https://i.pravatar.cc/100?img=5"></div>
+<div style="flex:1;overflow:hidden"><div style="display:flex;justify-content:space-between"><span class="name">Mom</span><span class="time">Yesterday</span></div><div style="display:flex;justify-content:space-between"><span class="preview">Don't forget to call me later ❤️</span><span class="badge">1</span></div></div>
+</div>
+
+<div class="chat" onclick="openChat('ENS Labs')">
+<div class="av" style="background:#0a2a2a;border:1px solid #25d366">ENS</div>
+<div style="flex:1;overflow:hidden"><div style="display:flex;justify-content:space-between"><span class="name">ENS Labs</span><span class="time">Yesterday</span></div><span class="preview">Deploy to testnet successful ✅</span></div>
+</div>
+
+<div class="chat" onclick="openChat('Liam Patel')">
+<div class="av"><img src="https://i.pravatar.cc/100?img=15"></div>
+<div style="flex:1;overflow:hidden"><div style="display:flex;justify-content:space-between"><span class="name">Liam Patel</span><span class="time">Tue</span></div><span class="preview">Can you review the PR when free?</span></div>
+</div>
+
+<div class="chat" onclick="openChat('Design Group')">
+<div class="av" style="background:#000"><div style="display:flex;flex-wrap:wrap"><img src="https://i.pravatar.cc/100?img=23" style="width:26px;height:26px;border-radius:50%"><img src="https://i.pravatar.cc/100?img=33" style="width:26px;height:26px;border-radius:50%"><img src="https://i.pravatar.cc/100?img=24" style="width:26px;height:26px;border-radius:50%"><img src="https://i.pravatar.cc/100?img=34" style="width:26px;height:26px;border-radius:50%"></div></div>
+<div style="flex:1;overflow:hidden"><div style="display:flex;justify-content:space-between"><span class="name">Design Group</span><span class="time">Tue</span></div><span class="preview">New mockups are in the shared folder</span></div>
+</div>
+</div>
+</div>
+
+<!-- STATUS -->
 <div id="pg-status" class="page">
-<div class="chat" onclick="document.getElementById('fStatus').click()"><div class="av" style="border:3px dashed #00a884">➕</div><div><b>My Status</b><br><small style="color:#8696a0">Tap to add 24h story</small></div></div>
-<input type="file" id="fStatus" hidden accept="image/*,video/*">
-<div style="padding:8px 16px;background:#182229;color:#8696a0;font-size:12px">RECENT • CHANNELS</div>
-<div class="chat"><div class="av">🔔</div><div style="flex:1"><b>Find Channels to follow</b><br><small>ENS Updates, UoN News</small></div><button style="padding:6px 12px;border-radius:20px;border:0;background:#00a884;color:#fff">Explore</button></div>
+<div class="chat" onclick="alert('My Status - Add photo')"><div class="av" style="border:3px solid #25d366">➕</div><div><b>My Status</b><br><small class="meta">Tap to add status update</small></div></div>
+<div style="padding:10px 16px;color:#8a8a8a;font-size:13px">RECENT UPDATES</div>
+<div class="chat" onclick="alert('View status')"><div class="av" style="border:3px solid #25d366"><img src="https://i.pravatar.cc/100?img=8"></div><div><b>Bob Chen</b><br><small class="meta">Today, 08:45</small></div></div>
 </div>
 
-<div id="pg-comm" class="page" style="padding:16px">
-<div style="text-align:center;padding:20px"><div style="font-size:60px">👥</div><h3>Introducing Communities</h3><p style="color:#8696a0;font-size:13px;margin:10px 0">Easily organize ENS 2026 related groups and bring them together in one place</p><button onclick="alert('Create Community: ENS 2026 - Add groups: Year 1, Year 2, Year 3, Year 4')" style="padding:12px 24px;background:#00a884;border:0;border-radius:24px;color:#fff;font-weight:bold;margin-top:10px">Start your community</button></div>
-<div class="chat"><div class="av">🎓</div><div><b>ENS 2026 Community</b><br><small>3 groups • 124 members</small></div></div>
+<!-- COMMUNITIES -->
+<div id="pg-comm" class="page" style="padding:20px;text-align:center">
+<div style="font-size:60px">👥</div><h2>Communities</h2><p class="meta" style="margin:10px">ENS 2026 all groups together</p>
+<div class="chat" style="background:#1f1f1f;border-radius:12px;margin-top:20px"><div class="av">🎓</div><div><b>ENS 2026</b><br><small class="meta">3 groups • 124 members</small></div></div>
 </div>
 
+<!-- CALLS -->
 <div id="pg-calls" class="page">
-<div style="padding:16px"><button onclick="alert('Create Call Link: Share to call ENS group free')" style="width:100%;padding:12px;background:#00a884;border:0;border-radius:24px;color:#fff;font-weight:bold">Create call link</button></div>
-<div class="chat" onclick="call('Dr Okore')"><div class="av">👨‍🏫</div><div style="flex:1"><b>Dr Okore</b><br><small style="color:#f15c6d">↙ Missed • Yesterday 10:30 AM</small></div><span style="color:#00a884">📞</span></div>
+<div class="chat" onclick="call()"><div class="av">👨‍🏫</div><div style="flex:1"><b>Dr Okore</b><br><small style="color:#f55">↙ Missed • Yesterday 10:30 AM</small></div><span style="color:#25d366;font-size:22px">📞</span></div>
+<div style="padding:16px"><button onclick="call()" style="width:100%;padding:14px;background:#25d366;border:0;border-radius:24px;color:#000;font-weight:700">Create call link</button></div>
 </div>
 
-<!-- CONTACTS PAGE -->
-<div id="pg-contacts" class="page" style="background:#111b21">
-<div style="padding:12px 16px;display:flex;align-items:center;gap:12px;background:#202c33"><span onclick="openTab('chats')" style="font-size:22px">←</span><b>New chat • 124 contacts</b><span style="margin-left:auto">🔍 ⋮</span></div>
+<!-- FAB - EXACT LIKE PHOTO -->
+<div class="fab" onclick="fab()"><span style="font-size:28px">📝</span></div>
 
-<div class="contact" onclick="alert('New Group')"><div class="av" style="background:#00a884">👥</div><b style="color:#00a884">New group</b></div>
-<div class="contact" onclick="alert('New Contact: Add ENS student')"><div class="av" style="background:#00a884">👤+</div><b style="color:#00a884">New contact</b> <span
+<!-- CHAT WINDOW -->
+<div id="win">
+<div style="background:#202c33;padding:10px;display:flex;align-items:center;gap:10px"><span onclick="document.getElementById('win').style.display='none'" style="font-size:26px">←</span><div class="av" style="width:38px;height:38px" id="cAv">A</div><b id="cName">Chat</b><span style="margin-left:auto">📞 📹 ⋮</span></div>
+<div id="box" style="flex:1;overflow-y:auto;padding:10px;background:#0b141a"></div>
+<div style="background:#202c33;padding:6px 10px;display:flex;gap:8px"><input id="inp" placeholder="Message" style="flex:1;padding:10px 14px;border-radius:20px;border:0;background:#2a3942;color:#fff;outline:0"><button onclick="send()" style="width:42px;height:42px;border-radius:50%;border:0;background:#25d366">➤</button></div>
+</div>
+
+<script>
+function tab(t){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));
+ document.getElementById('pg-'+t).classList.add('active');
+ document.getElementById(t=='chats'?'p1':t=='status'?'p2':t=='comm'?'p3':'p4').classList.add('active');
+}
+function openChat(n){document.getElementById('win').style.display='flex';document.getElementById('cName').innerText=n;document.getElementById('cAv').innerText=n[0];let b=document.getElementById('box');b.innerHTML='<div style=background:#202c33;padding:8px 10px;border-radius:10px;margin:5px;max-width:75%>Chat with '+n+'<br><small style=color:#8a8a8a>Today</small></div>';}
+function send(){let i=document.getElementById('inp');if(!i.value.trim())return;let b=document.getElementById('box');let d=document.createElement('div');d.style.cssText='background:#005c4b;padding:8px 10px;border-radius:10px;margin:5px;max-width:75%;margin-left:auto';d.innerText=i.value;b.appendChild(d);b.scrollTop=9999;i.value=''}
+function fab(){let cur=document.querySelector('.page.active').id;if(cur=='pg-chats')alert('New Chat: Select ENS 2026 contact - 124 contacts');else if(cur=='pg-status')alert('Add Status Photo');else if(cur=='pg-calls')call();else alert('New Community');}
+function call(){let r='ENS2026_'+Date.now();let url='https://meet.jit.si/'+r;if(confirm('Free ENS call - Share link:\n'+url+'\nJoin now?'))window.open(url,'_blank')}
+</script>
+</body></html>
